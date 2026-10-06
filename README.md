@@ -31,8 +31,6 @@ O projeto utiliza tecnologia para identificar problemas e auxiliar na tomada de 
 - Caio Veloso Lima Deodato
 - André Sousa Lima
 - Lucas Aparecido Rolim Costa
-- Paloma Alves Evangelista
-- Leticia Nascimento de Sousa Oliveira
   
 ## 📊 Resultados esperados
 
