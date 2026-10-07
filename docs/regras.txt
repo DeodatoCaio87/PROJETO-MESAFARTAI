@@ -1,0 +1,47 @@
+PROJETO MESAFARTAI – REGRAS DA ETAPA 1
+
+Nesta primeira etapa, o objetivo é estabelecer as fundações de engenharia,
+banco de dados e documentação do projeto MESAFARTAI – Logística e
+Inteligência Assistiva no Combate à Fome.
+
+REQUISITOS DA ETAPA:
+
+1. Criar um repositório público no GitHub com o nome PROJETO-MESAFARTAI.
+
+2. Adicionar os integrantes do grupo como colaboradores e adicionar o professor.
+
+3. Criar o arquivo README.md contendo:
+   - Título oficial do projeto;
+   - Descrição resumida da solução;
+   - Alinhamento com a ODS 2;
+   - Nome completo e RA dos integrantes.
+
+4. Criar a pasta /docs contendo:
+   - regras.txt;
+   - escopo_projeto.md.
+
+5. Criar o arquivo escopo_projeto.md contendo:
+   - Problema de negócio;
+   - Público-alvo;
+   - Escopo das intenções;
+   - Dados coletados pelo chat;
+   - Prompt utilizado para criação do logotipo por IA.
+
+6. Criar a identidade visual e o logotipo do MESAFARTAI utilizando
+   Inteligência Artificial.
+
+7. Salvar o logotipo em:
+   assets/logo_mesafartai.png
+
+8. Criar a pasta /src e o arquivo:
+   src/database.py
+
+9. Desenvolver o banco de dados SQLite3 com as tabelas:
+   - usuarios;
+   - doacoes;
+   - matches.
+
+10. Inserir dados iniciais de teste no banco de dados.
+
+11. Executar o script database.py sem erros, gerando o arquivo
+    mesafartai.db.
