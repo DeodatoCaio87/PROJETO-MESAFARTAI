@@ -28,9 +28,9 @@ O projeto utiliza tecnologia para identificar problemas e auxiliar na tomada de 
 
 ## 👥 Equipe
 
-- Caio Veloso Lima Deodato
-- André Sousa Lima
-- Lucas Aparecido Rolim Costa
+- Caio Veloso Lima Deodato - 155849
+- André Sousa Lima - 155773
+- Lucas Aparecido Rolim Costa - 149677
   
 ## 📊 Resultados esperados
 
