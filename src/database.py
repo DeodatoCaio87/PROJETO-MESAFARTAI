@@ -2,17 +2,14 @@ import sqlite3
 
 
 def inicializar_banco():
-    # Conecta ao banco de dados SQLite
+    # Conecta ao banco de dados
     conn = sqlite3.connect("mesafartai.db")
     cursor = conn.cursor()
 
-    # Ativa o uso de chaves estrangeiras
+    # Ativa as chaves estrangeiras
     cursor.execute("PRAGMA foreign_keys = ON")
 
-    # ============================================================
     # 1. TABELA DE USUÁRIOS
-    # Armazena Doadores e ONGs
-    # ============================================================
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,10 +22,7 @@ def inicializar_banco():
         )
     """)
 
-    # ============================================================
     # 2. TABELA DE DOAÇÕES
-    # Armazena os alimentos disponibilizados pelos doadores
-    # ============================================================
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS doacoes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,10 +35,7 @@ def inicializar_banco():
         )
     """)
 
-    # ============================================================
     # 3. TABELA DE MATCHES LOGÍSTICOS
-    # Relaciona uma doação com uma ONG
-    # ============================================================
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS matches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,93 +48,51 @@ def inicializar_banco():
         )
     """)
 
-    # ============================================================
-    # CARGA INICIAL DE DADOS DE TESTE
-    # ============================================================
-
+    # 4. CARGA INICIAL DE DADOS
     cursor.execute("SELECT COUNT(*) FROM usuarios")
-
     quantidade_usuarios = cursor.fetchone()[0]
 
     if quantidade_usuarios == 0:
 
-        # --------------------------------------------------------
-        # ONGs DE TESTE
-        # --------------------------------------------------------
+        usuarios_teste = [
+            (
+                "ONG Prato Quente", "ONG",
+                "06700-000", -23.612, -46.781,
+                "11999990001"
+            ),
+            (
+                "Abrigo Esperanca", "ONG",
+                "06705-000", -23.625, -46.795,
+                "11999990002"
+            ),
+            (
+                "Supermercado Silva", "DOADOR",
+                "06701-000", -23.615, -46.785,
+                "11999990003"
+            ),
+            (
+                "Restaurante Sabor", "DOADOR",
+                "06703-000", -23.618, -46.789,
+                "11999990004"
+            )
+        ]
 
-        cursor.execute("""
+        cursor.executemany("""
             INSERT INTO usuarios
             (nome, tipo, cep, latitude, longitude, telefone)
             VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            "ONG Prato Quente",
-            "ONG",
-            "06700-000",
-            -23.612,
-            -46.781,
-            "11999990001"
-        ))
+        """, usuarios_teste)
 
-        cursor.execute("""
-            INSERT INTO usuarios
-            (nome, tipo, cep, latitude, longitude, telefone)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            "Abrigo Esperanca",
-            "ONG",
-            "06705-000",
-            -23.625,
-            -46.795,
-            "11999990002"
-        ))
-
-        # --------------------------------------------------------
-        # DOADORES DE TESTE
-        # --------------------------------------------------------
-
-        cursor.execute("""
-            INSERT INTO usuarios
-            (nome, tipo, cep, latitude, longitude, telefone)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            "Supermercado Silva",
-            "DOADOR",
-            "06701-000",
-            -23.615,
-            -46.785,
-            "11999990003"
-        ))
-
-        cursor.execute("""
-            INSERT INTO usuarios
-            (nome, tipo, cep, latitude, longitude, telefone)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            "Restaurante Sabor",
-            "DOADOR",
-            "06703-000",
-            -23.618,
-            -46.789,
-            "11999990004"
-        ))
-
-        print("Dados iniciais de teste inseridos com sucesso!")
+        print("Dados iniciais inseridos com sucesso!")
 
     else:
-        print("Dados de teste já existem. Nenhuma inserção foi realizada.")
+        print("Dados de teste já existem.")
 
-    # Salva as alterações
     conn.commit()
-
-    # Fecha a conexão
     conn.close()
 
-    print("Banco de dados 'mesafartai.db' inicializado com sucesso!")
+    print("Banco mesafartai.db inicializado com sucesso!")
 
-
-# ================================================================
-# EXECUÇÃO PRINCIPAL
-# ================================================================
 
 if __name__ == "__main__":
     inicializar_banco()

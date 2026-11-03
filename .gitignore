@@ -1,0 +1,19 @@
+
+# Bancos de dados locais
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos temporários do Python
+__pycache__/
+*.py[cod]
+
+# Ambientes virtuais
+.venv/
+venv/
+
+# Arquivos de configuração privada
+.env
+
+# Script temporário de verificação
+verificar_bancos.py
