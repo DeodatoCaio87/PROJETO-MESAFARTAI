@@ -1,42 +1,77 @@
-# PROJETO-MESAFARTAI
+# 🌱 PROJETO-MESAFARTAI
 
-# ODS 2 – Fome Zero e Agricultura Sustentável
+## ODS 2 – Fome Zero e Agricultura Sustentável
 
-## 📌 Sobre o projeto
+### 📌 Sobre o projeto
 
-Este projeto tem como objetivo contribuir com a ODS 2 da ONU, que busca acabar com a fome, garantir a segurança alimentar e promover uma agricultura sustentável.
+O MESAFARTAI é um sistema inteligente de logística para doação de alimentos, desenvolvido com o objetivo de auxiliar na conexão entre doadores e organizações não governamentais (ONGs).
 
-## 🎯 Objetivo
+A solução utiliza técnicas de inteligência artificial e processamento de dados para facilitar o registro de doações, a identificação de necessidades alimentares e a aproximação entre doadores e instituições.
 
-Desenvolver uma solução utilizando tecnologia para auxiliar no combate à fome e na melhoria do acesso e da distribuição de alimentos.
+### 🎯 Objetivo
 
-## 🌱 ODS relacionada
+Desenvolver uma plataforma tecnológica que contribua para o combate à fome, facilitando a distribuição de alimentos e reduzindo dificuldades logísticas entre doadores e instituições beneficiárias.
+
+### 🌱 ODS relacionada
 
 **ODS 2 – Fome Zero e Agricultura Sustentável**
 
-A ODS 2 busca:
+O projeto está relacionado aos seguintes objetivos:
 
-- Acabar com a fome;
-- Garantir segurança alimentar e nutricional;
-- Promover uma alimentação adequada;
-- Incentivar uma agricultura sustentável;
-- Melhorar a produção e distribuição de alimentos.
+- Combater a fome e a insegurança alimentar.
+- Contribuir para o acesso a alimentos.
+- Incentivar o aproveitamento de alimentos disponíveis para doação.
+- Facilitar a distribuição de recursos alimentares.
+- Utilizar a tecnologia como ferramenta de impacto social.
 
-## 💡 Solução proposta
+### 💡 Solução proposta
 
-O projeto utiliza tecnologia para identificar problemas e auxiliar na tomada de decisões relacionadas à alimentação e à distribuição de recursos.
+O MESAFARTAI oferece uma aplicação com interface interativa desenvolvida em Streamlit.
 
-## 👥 Equipe
+O sistema possui as seguintes funcionalidades:
 
-- Caio Veloso Lima Deodato - 155849
-- André Sousa Lima - 155773
-- Lucas Aparecido Rolim Costa - 149677
-  
-## 📊 Resultados esperados
+- **Chatbot inteligente:** identifica solicitações e intenções dos usuários.
+- **Processamento de linguagem natural (NLU):** utiliza TF-IDF e Random Forest para classificar mensagens.
+- **Extração de entidades:** utiliza expressões regulares (Regex) para identificar alimentos, quantidades e datas de validade.
+- **Matchmaking:** utiliza KNN para identificar ONGs geograficamente próximas aos doadores.
+- **Banco de dados:** utiliza SQLite para armazenar usuários, doações, solicitações e correspondências.
+- **Solicitação de alimentos:** permite que ONGs registrem suas necessidades alimentares.
+- **Dashboard:** apresenta indicadores, meta de arrecadação e históricos de doações e solicitações.
 
-Espera-se que a solução contribua para a redução de problemas relacionados à insegurança alimentar, além de demonstrar como a tecnologia pode ser utilizada para apoiar os objetivos de desenvolvimento sustentável.
+### 🛠️ Tecnologias utilizadas
 
-## 📚 Referências
+- Python
+- Streamlit
+- Scikit-learn
+- Pandas
+- NumPy
+- SQLite
+- Git e GitHub
 
-- Organização das Nações Unidas (ONU)
-- Objetivos de Desenvolvimento Sustentável – ODS 2
+### ▶️ Como executar o projeto
+
+**1. Clonar o repositório**
+
+```bash
+git clone https://github.com/DeodatoCaio87/PROJETO-MESAFARTAI.git
+```
+
+**2. Acessar a pasta do projeto**
+
+```bash
+cd PROJETO-MESAFARTAI
+```
+
+**3. Instalar as dependências**
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Executar a aplicação**
+
+```bash
+python -m streamlit run src/app.py
+```
+
+Após a execução, o Streamlit disponibilizará o

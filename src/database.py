@@ -1,9 +1,11 @@
 import sqlite3
+from pathlib import Path
 
+CAMINHO_BANCO = Path(__file__).resolve().parent.parent / "mesafartai.db"
 
 def inicializar_banco():
     # Conecta ao banco de dados
-    conn = sqlite3.connect("mesafartai.db")
+    conn = sqlite3.connect(str(CAMINHO_BANCO))
     cursor = conn.cursor()
 
     # Ativa as chaves estrangeiras
@@ -47,8 +49,21 @@ def inicializar_banco():
             FOREIGN KEY (ong_id) REFERENCES usuarios(id)
         )
     """)
+    
+    # 4. TABELA DE SOLICITAÇÕES DE ALIMENTOS
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS solicitacoes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ong_id INTEGER NOT NULL,
+            descricao_alimento TEXT NOT NULL,
+            quantidade_kg REAL NOT NULL,
+            status TEXT DEFAULT 'ABERTA',
+            data_solicitacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (ong_id) REFERENCES usuarios(id)
+        )
+    """)
 
-    # 4. CARGA INICIAL DE DADOS
+    # 5. CARGA INICIAL DE DADOS
     cursor.execute("SELECT COUNT(*) FROM usuarios")
     quantidade_usuarios = cursor.fetchone()[0]
 
