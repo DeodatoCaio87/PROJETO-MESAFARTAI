@@ -1,77 +1,103 @@
-# 🌱 PROJETO-MESAFARTAI
+# 🌱 MESAFARTAI — Versão 2
 
-## ODS 2 – Fome Zero e Agricultura Sustentável
+**ODS 2 — Fome Zero e Agricultura Sustentável**
 
-### 📌 Sobre o projeto
+Sistema de apoio à doação de alimentos que conecta doadores a ONGs compatíveis e próximas. A aplicação usa Streamlit, SQLite, processamento de linguagem natural, extração de entidades, geocodificação e matchmaking geográfico.
 
-O MESAFARTAI é um sistema inteligente de logística para doação de alimentos, desenvolvido com o objetivo de auxiliar na conexão entre doadores e organizações não governamentais (ONGs).
+## Funcionalidades
 
-A solução utiliza técnicas de inteligência artificial e processamento de dados para facilitar o registro de doações, a identificação de necessidades alimentares e a aproximação entre doadores e instituições.
+- Chatbot conversacional para registrar doações e consultar protocolos.
+- NLU com TF-IDF e Regressão Logística, treinado com `data/dataset_intencoes.csv`.
+- Extração de alimentos, quantidades, unidades, validade, CEP/endereço e contato.
+- Geocodificação por BrasilAPI, ViaCEP e Nominatim/OpenStreetMap, com cache.
+- Matchmaking KNN com distância de Haversine, restrições alimentares e até duas opções de ONG.
+- Área administrativa protegida por usuário e senha com hash PBKDF2.
+- Cadastro e gerenciamento de ONGs, dashboard e acompanhamento das doações.
 
-### 🎯 Objetivo
+## Estrutura
 
-Desenvolver uma plataforma tecnológica que contribua para o combate à fome, facilitando a distribuição de alimentos e reduzindo dificuldades logísticas entre doadores e instituições beneficiárias.
-
-### 🌱 ODS relacionada
-
-**ODS 2 – Fome Zero e Agricultura Sustentável**
-
-O projeto está relacionado aos seguintes objetivos:
-
-- Combater a fome e a insegurança alimentar.
-- Contribuir para o acesso a alimentos.
-- Incentivar o aproveitamento de alimentos disponíveis para doação.
-- Facilitar a distribuição de recursos alimentares.
-- Utilizar a tecnologia como ferramenta de impacto social.
-
-### 💡 Solução proposta
-
-O MESAFARTAI oferece uma aplicação com interface interativa desenvolvida em Streamlit.
-
-O sistema possui as seguintes funcionalidades:
-
-- **Chatbot inteligente:** identifica solicitações e intenções dos usuários.
-- **Processamento de linguagem natural (NLU):** utiliza TF-IDF e Random Forest para classificar mensagens.
-- **Extração de entidades:** utiliza expressões regulares (Regex) para identificar alimentos, quantidades e datas de validade.
-- **Matchmaking:** utiliza KNN para identificar ONGs geograficamente próximas aos doadores.
-- **Banco de dados:** utiliza SQLite para armazenar usuários, doações, solicitações e correspondências.
-- **Solicitação de alimentos:** permite que ONGs registrem suas necessidades alimentares.
-- **Dashboard:** apresenta indicadores, meta de arrecadação e históricos de doações e solicitações.
-
-### 🛠️ Tecnologias utilizadas
-
-- Python
-- Streamlit
-- Scikit-learn
-- Pandas
-- NumPy
-- SQLite
-- Git e GitHub
-
-### ▶️ Como executar o projeto
-
-**1. Clonar o repositório**
-
-```bash
-git clone https://github.com/DeodatoCaio87/PROJETO-MESAFARTAI.git
+```text
+MESAFARTAI/
+├── requirements.txt
+├── src/
+│   ├── app.py
+│   ├── auth.py
+│   ├── chatbot.py
+│   ├── database.py
+│   ├── entities.py
+│   ├── geocoding.py
+│   ├── matchmaking.py
+│   └── nlu.py
+├── data/
+│   ├── alimentos.csv
+│   ├── dataset_intencoes.csv
+│   └── dataset_teste.csv
+├── scripts/
+│   ├── gerar_hash_senha.py
+│   └── gerar_dataset.py
+└── .streamlit/
+    └── secrets.toml.example
 ```
 
-**2. Acessar a pasta do projeto**
+## Instalação — Windows (PowerShell)
 
-```bash
+1. Clone o repositório ou atualize sua cópia local:
+
+```powershell
+git clone https://github.com/DeodatoCaio87/PROJETO-MESAFARTAI.git
 cd PROJETO-MESAFARTAI
 ```
 
-**3. Instalar as dependências**
+Se já possui o projeto, entre na pasta e execute `git pull origin main`.
 
-```bash
+2. Crie e ative o ambiente virtual:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+```
+
+3. Instale as dependências:
+
+```powershell
 pip install -r requirements.txt
 ```
 
-**4. Executar a aplicação**
+4. Configure os segredos. Copie o exemplo:
 
-```bash
-python -m streamlit run src/app.py
+```powershell
+Copy-Item .streamlit/secrets.toml.example .streamlit/secrets.toml
 ```
 
-Após a execução, o Streamlit disponibilizará o
+Gere a senha do administrador:
+
+```powershell
+python scripts/gerar_hash_senha.py
+```
+
+Copie o bloco `[admin]` exibido pelo script para `.streamlit/secrets.toml`, substituindo os valores de exemplo. Em `[app]`, substitua o contato em `nominatim_user_agent` por um e-mail real. **Nunca publique `.streamlit/secrets.toml` no GitHub.**
+
+5. Execute:
+
+```powershell
+streamlit run src/app.py
+```
+
+## Testes e dados
+
+- Acesse **Administração** e entre com o usuário e senha configurados.
+- Cadastre pelo menos quatro ONGs com CEP/endereço, coordenadas e restrições alimentares adequadas.
+- Faça cinco conversas de doação no chatbot, incluindo consentimento e escolha/recusa de ONG.
+- Teste a consulta de protocolo e confira o dashboard.
+- O conjunto de teste do NLU pode ser avaliado executando `python src/nlu.py`.
+
+O banco SQLite é criado em `data/mesafartai.db`. Ele é local e está excluído do Git.
+
+## Privacidade e mapas
+
+O chatbot solicita consentimento antes de gravar a doação. Os dados de contato são usados para o fluxo de doação. O Nominatim exige identificação no User-Agent, respeito ao limite de requisições e atribuição © OpenStreetMap contributors nos mapas.
+
+## Tecnologias
+
+Python · Streamlit · SQLite · Pandas · NumPy · scikit-learn · spaCy · Regex · BrasilAPI · ViaCEP · OpenStreetMap/Nominatim · Git/GitHub
