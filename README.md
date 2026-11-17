@@ -86,6 +86,14 @@ streamlit run src/app.py
 
 ## Testes e dados
 
+Se quiser regenerar os conjuntos de dados a partir dos modelos e exemplos do projeto, execute na raiz:
+
+```powershell
+python scripts/gerar_dataset.py
+```
+
+O script recria `data/dataset_intencoes.csv` e `data/dataset_teste.csv`. Em seguida, o NLU pode ser avaliado com `python src/nlu.py`.
+
 - Acesse **Administração** e entre com o usuário e senha configurados.
 - Cadastre pelo menos quatro ONGs com CEP/endereço, coordenadas e restrições alimentares adequadas.
 - Faça cinco conversas de doação no chatbot, incluindo consentimento e escolha/recusa de ONG.
