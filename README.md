@@ -10,9 +10,9 @@ O MESAFARTAI é uma aplicação acadêmica que apoia a conexão entre pessoas e 
 
 | Integrante | RA/RGM | Curso |
 |---|---|---|
-| Caio Veloso Lima Deodato | **[PREENCHER]** | **[PREENCHER]** |
-| André Sousa Lima | **[PREENCHER]** | **[PREENCHER]** |
-| Lucas Aparecido Rolim Costa | **[PREENCHER]** | **[PREENCHER]** |
+| Caio Veloso Lima Deodato | **[155849]** | **[Analise e Desenvolvimento de Sistemas]** |
+| André Sousa Lima | **[155773]** | **[Analise e Desenvolvimento de Sistemas]** |
+| Lucas Aparecido Rolim Costa | **[149677]** | **[Analise e Desenvolvimento de Sistemas]** |
 
 ## Objetivo e alinhamento à ODS 2
 
