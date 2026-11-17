@@ -1,19 +1,15 @@
-
 # Bancos de dados locais
 *.db
 *.sqlite
 *.sqlite3
+/data/mesafartai.db
 
-# Arquivos temporários do Python
+# Python e ambientes virtuais
 __pycache__/
 *.py[cod]
-
-# Ambientes virtuais
 .venv/
 venv/
 
-# Arquivos de configuração privada
+# Segredos e credenciais
+.streamlit/secrets.toml
 .env
-
-# Script temporário de verificação
-verificar_bancos.py
