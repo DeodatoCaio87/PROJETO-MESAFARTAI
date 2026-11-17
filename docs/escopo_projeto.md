@@ -1,175 +1,172 @@
 # MESAFARTAI — Escopo do Projeto
 
-## 1. Problema de Negócio
+## 1. Problema de negócio
 
-O desperdício de alimentos ocorre diariamente em supermercados, restaurantes, produtores, distribuidores e outros estabelecimentos. Produtos próximos da data de validade, com pequenas imperfeições estéticas ou provenientes de excesso de estoque podem deixar de ser comercializados mesmo estando próprios para consumo.
+O desperdício de alimentos ocorre diariamente em supermercados, restaurantes, produtores, distribuidores e outros estabelecimentos. Alimentos próprios para consumo podem deixar de ser aproveitados por excesso de estoque, proximidade da validade ou dificuldades de distribuição.
 
-Ao mesmo tempo, instituições como ONGs, abrigos, cozinhas comunitárias e projetos sociais enfrentam dificuldades para obter alimentos suficientes para atender pessoas em situação de vulnerabilidade.
+Ao mesmo tempo, instituições sociais, abrigos, cozinhas comunitárias e projetos de assistência enfrentam dificuldades para obter alimentos suficientes para atender pessoas em situação de vulnerabilidade.
 
-O MESAFARTAI foi desenvolvido com o objetivo de aproximar doadores e instituições que necessitam de alimentos, utilizando Inteligência Artificial para auxiliar na interpretação das mensagens, identificação das informações das doações e encaminhamento logístico.
+O MESAFARTAI busca aproximar doadores e instituições cadastradas, utilizando processamento de linguagem natural para interpretar informações de doações e recursos de geolocalização para apoiar o encaminhamento logístico.
 
-O projeto está alinhado ao **ODS 2 — Fome Zero e Agricultura Sustentável**, contribuindo para a redução do desperdício e para o melhor aproveitamento dos alimentos.
+O projeto está alinhado à **ODS 2 — Fome Zero e Agricultura Sustentável**, contribuindo como proposta tecnológica para reduzir desperdício e facilitar o aproveitamento de alimentos.
 
----
-
-## 2. Público-Alvo
+## 2. Público-alvo e papéis
 
 ### Doadores
 
-Estabelecimentos e pessoas que possuem alimentos disponíveis para doação, como:
+Pessoas físicas e estabelecimentos que possuem alimentos disponíveis para doação, por exemplo:
+- Supermercados;
+- Restaurantes;
+- Produtores e distribuidores;
+- Comerciantes;
+- Pessoas físicas.
 
-* Supermercados;
-* Restaurantes;
-* Produtores;
-* Distribuidores;
-* Comerciantes;
-* Pessoas físicas.
-
-O doador poderá informar, por meio de uma conversa, quais alimentos possui, suas quantidades e informações relacionadas à validade.
+Na versão atual, o doador inicia a conversa no chatbot, informa os alimentos, quantidades, validade e dados de contato/localização, concede consentimento e recebe um protocolo para acompanhar o registro.
 
 ### Instituições / ONGs
 
-Instituições que recebem alimentos para distribuição ou preparo de refeições, como:
+ONGs, abrigos, cozinhas comunitárias, bancos de alimentos e outras instituições sociais que recebem alimentos para distribuição ou preparo de refeições.
 
-* ONGs;
-* Abrigos;
-* Cozinhas comunitárias;
-* Instituições sociais;
-* Projetos de assistência alimentar.
+Na versão atual, as instituições são cadastradas e gerenciadas pela área administrativa. O sistema utiliza os dados cadastrados para procurar possíveis destinatárias. **Não existe nesta versão uma área autenticada nem um fluxo de solicitação de alimentos iniciado diretamente pela ONG.** A intenção textual `solicitar_alimentos` é reconhecida pelo classificador e respondida pelo chatbot com orientação para contato com a administração. Um portal de solicitações para ONGs é uma possibilidade de evolução futura, não uma funcionalidade concluída.
 
-Essas instituições poderão solicitar alimentos e acompanhar informações relacionadas às solicitações e doações.
+### Administrador
 
----
+Responsável pelo acesso protegido à área administrativa, cadastro/edição/ativação/desativação das ONGs, acompanhamento das doações, consulta dos indicadores, exportação dos registros e atualização do status de coleta.
 
-## 3. Objetivo do Sistema
+## 3. Objetivo e limites do sistema
 
-O MESAFARTAI tem como objetivo utilizar Inteligência Artificial para facilitar o processo de conexão entre doadores de alimentos e instituições que necessitam desses recursos.
+O objetivo é apoiar o registro e o encaminhamento de doações de alimentos por meio de uma interface conversacional e de sugestões logísticas.
 
-O sistema utiliza processamento de linguagem natural (NLU) para interpretar mensagens enviadas pelos usuários, identificar suas intenções e extrair informações relevantes.
+O sistema é um protótipo acadêmico. A sugestão de uma ONG não representa confirmação de transporte, inspeção sanitária, retirada ou entrega física. O doador e a instituição precisam combinar os detalhes operacionais diretamente.
 
-Após a identificação dos dados da doação, o sistema poderá utilizar informações de localização e distância para auxiliar na escolha de uma instituição adequada.
+## 4. Intenções tratadas pelo chatbot
 
----
+O classificador NLU utiliza TF-IDF e Regressão Logística. Entre as intenções reconhecidas estão:
 
-## 4. Intenções do Chatbot
+| Intenção | Comportamento na aplicação |
+|---|---|
+| `saudacao_ajuda` | Apresenta o assistente e orienta o usuário a informar o que deseja doar. |
+| `cadastrar_doacao` | Inicia o fluxo de coleta dos dados de uma doação. |
+| `solicitar_alimentos` | Informa que este canal é destinado a doadores e orienta a ONG a entrar em contato com a administração. Não registra uma solicitação. |
+| `consultar_status` | Solicita o protocolo para consultar uma doação já registrada. |
+| `aceitar_opcao` | Confirma a opção de ONG apresentada no contexto da conversa. |
+| `recusar_opcao` | Registra a recusa e permite verificar uma próxima opção, quando disponível. |
+| `fora_de_escopo` | Explica que o assistente está limitado às funções relacionadas a doações de alimentos. |
+| `fallback` | Solicita que o usuário reformule a mensagem quando a confiança da classificação é insuficiente. |
 
-O chatbot trabalhará inicialmente com quatro intenções principais:
+As respostas afirmativas e negativas também são interpretadas pelo estado atual da conversa, com validação por expressões regulares e classificação restrita quando necessário.
 
-### `cadastrar_doacao`
+## 5. Dados tratados
 
-Utilizada quando o usuário deseja informar alimentos disponíveis para doação.
+### Dados do doador e da localização
 
-Exemplo:
+- Nome;
+- E-mail;
+- CEP e/ou endereço informado;
+- Latitude e longitude, quando a geocodificação é possível;
+- Mensagem original;
+- Registro de consentimento.
 
-> "Tenho 20 kg de arroz e 10 caixas de leite para doar."
+O nome e o e-mail só são gravados depois do consentimento solicitado no fluxo.
 
-### `solicitar_alimentos`
+### Dados da doação
 
-Utilizada quando uma instituição deseja solicitar alimentos.
+- Protocolo;
+- Descrição dos alimentos;
+- Itens individualizados;
+- Quantidades e unidades;
+- Categorias dos alimentos;
+- Data de validade, quando informada;
+- Localização de origem, quando disponível;
+- Status e data do registro.
 
-Exemplo:
+### Dados das ONGs
 
-> "Precisamos de arroz e feijão para nossa cozinha comunitária."
+- Nome e tipo de instituição;
+- CEP, endereço e coordenadas;
+- Telefone e e-mail de contato;
+- Restrições alimentares;
+- Horário de recebimento;
+- Capacidade e observações;
+- Situação ativa/inativa.
 
-### `consultar_status`
+### Dados do encaminhamento (match)
 
-Utilizada quando o usuário deseja consultar o andamento de uma doação ou solicitação.
+- Doação relacionada;
+- ONG sugerida;
+- Ordem da opção;
+- Distância estimada;
+- Status da sugestão (sugerida, aceita ou recusada);
+- Data da sugestão e da resposta.
 
-Exemplo:
+## 6. Técnicas e tecnologias utilizadas
 
-> "Gostaria de saber o status da minha doação."
+### NLU — Processamento de Linguagem Natural
 
-### `fora_de_escopo`
+O módulo `src/nlu.py` utiliza TF-IDF para transformar mensagens em atributos numéricos e Regressão Logística para classificar intenções. O treinamento utiliza `data/dataset_intencoes.csv`; existe também um conjunto separado em `data/dataset_teste.csv` para avaliação manual do classificador.
 
-Utilizada quando a mensagem não está relacionada às funcionalidades do MESAFARTAI.
+### Regex e extração de entidades
 
-Exemplo:
+O módulo `src/entities.py` identifica informações estruturadas nas mensagens, como alimentos, quantidades, unidades, datas, CEP, e-mail e outros dados necessários ao fluxo. A conversa é conduzida por etapas para solicitar os dados que ainda estiverem faltando.
 
-> "Qual é a previsão do tempo para amanhã?"
+### Geocodificação
 
----
+O módulo `src/geocoding.py` consulta cache local e serviços como BrasilAPI, ViaCEP e Nominatim/OpenStreetMap para obter endereço e coordenadas. Os resultados podem ter diferentes níveis de precisão e devem ser conferidos pelo usuário. O Nominatim exige identificação adequada no User-Agent, respeito à política de uso e atribuição dos dados cartográficos.
 
-## 5. Informações Coletadas
+### Matchmaking geográfico
 
-Durante a conversa, o sistema poderá identificar e armazenar informações necessárias para realizar o encaminhamento das doações.
+O módulo `src/matchmaking.py` calcula distâncias com a fórmula de Haversine e utiliza KNN para ordenar instituições por proximidade. Antes da classificação, instituições inativas e aquelas cujas restrições conflitam com as categorias da doação são descartadas. O sistema pode apresentar até duas opções ao doador.
 
-### Informações do usuário
+### Banco de dados
 
-* Nome;
-* Tipo de usuário (DOADOR ou ONG);
-* CEP;
-* Latitude;
-* Longitude;
-* Telefone.
+O módulo `src/database.py` utiliza SQLite para armazenar ONGs, doações, itens, matches e cache de geocodificação. O banco é criado em `data/mesafartai.db` localmente.
 
-### Informações da doação
+### Interface e autenticação
 
-* Descrição do alimento;
-* Quantidade em quilogramas;
-* Data de validade;
-* Status da doação.
+O módulo `src/app.py` implementa as telas públicas de doação, acompanhamento por protocolo e informações sobre o funcionamento, além da área administrativa protegida. O módulo `src/auth.py` valida as credenciais administrativas com hash PBKDF2 e controle de tentativas.
 
-### Informações do Match
+## 7. Fluxo principal da doação
 
-* Identificação da doação;
-* Identificação da ONG;
-* Distância entre doador e instituição;
-* Data do encaminhamento.
+1. O doador abre a opção **Quero doar**.
+2. Envia uma mensagem com os alimentos disponíveis.
+3. O NLU identifica a intenção e o extrator reconhece os itens e quantidades.
+4. O chatbot solicita as informações que faltarem, como validade, nome, e-mail e localização.
+5. O sistema apresenta o resumo e solicita consentimento antes de persistir os dados pessoais e a doação.
+6. A doação é registrada no SQLite e recebe um protocolo.
+7. O matchmaking procura ONGs ativas, compatíveis com as categorias e restrições, e ordena as opções por distância.
+8. O doador pode aceitar ou recusar a opção apresentada. Se houver outra instituição elegível, o sistema poderá oferecer uma segunda opção.
+9. O usuário consulta o andamento usando o protocolo.
+10. O administrador acompanha a doação e pode marcar como coletada uma doação previamente aceita.
 
----
+Se não houver ONG compatível, ou se as opções forem recusadas, a doação permanece sem destino definido. O cadastro posterior de uma ONG não deve ser interpretado como uma aceitação automática de doação anterior; o encaminhamento precisa ser realizado pelo fluxo administrativo/conversacional disponível na versão instalada.
 
-## 6. Inteligência Artificial Utilizada
+## 8. Estrutura de dados
 
-O sistema será desenvolvido utilizando diferentes técnicas de Inteligência Artificial e processamento de dados.
+O banco atual contém as tabelas:
+- `ongs`: instituições destinatárias e seus dados operacionais;
+- `doacoes`: registro principal, protocolo, dados do doador, consentimento e status;
+- `itens_doacao`: alimentos, quantidades, unidades e categorias de cada doação;
+- `matches`: opções de ONG sugeridas e respostas;
+- `cache_geocodificacao`: resultados de localização reutilizáveis.
 
-### NLU
+O arquivo SQLite é local e está excluído do Git. Em ambientes de hospedagem com armazenamento efêmero, é necessário configurar persistência externa antes de utilizar o sistema continuamente.
 
-O módulo de NLU será responsável por identificar a intenção presente na mensagem do usuário.
-
-As intenções previstas são:
-
-* `cadastrar_doacao`;
-* `solicitar_alimentos`;
-* `consultar_status`;
-* `fora_de_escopo`.
-
-### Regex
-
-Expressões regulares serão utilizadas para identificar informações estruturadas presentes nas mensagens, como:
-
-* Quantidade de alimentos;
-* Unidades;
-* Datas;
-* Informações relacionadas aos produtos.
-
-### KNN
-
-O algoritmo KNN será utilizado para auxiliar no processo de matchmaking entre doações e instituições, considerando a proximidade geográfica.
-
-### SQLite
-
-O sistema utilizará SQLite para armazenar os dados dos usuários, doações e matches.
-
----
-
-## 7. Fluxo Geral
-
-O fluxo básico do MESAFARTAI será:
-
-1. O usuário envia uma mensagem ao chatbot;
-2. O sistema identifica a intenção da mensagem;
-3. Caso seja uma doação, os dados relevantes são extraídos;
-4. As informações são armazenadas no banco de dados;
-5. O sistema identifica instituições compatíveis;
-6. O KNN auxilia na escolha considerando a proximidade;
-7. O sistema apresenta o encaminhamento ao usuário.
-
----
-
-## 8. Prompt Utilizado para Geração da Logo
+## 9. Identidade visual e prompt de geração do logotipo
 
 A identidade visual do MESAFARTAI foi criada utilizando Inteligência Artificial.
 
-**Prompt utilizado:**
+**Prompt registrado para geração da logo:**
 
 > Crie um logotipo profissional e moderno para um projeto chamado "MESAFARTAI — Logística e Inteligência Assistiva no Combate à Fome". O logo deve combinar elementos relacionados à alimentação, doação e combate à fome com elementos visuais de inteligência artificial e tecnologia assistiva. Utilize uma representação estilizada de alimentos, uma mão ou elemento de acolhimento e circuitos digitais de IA. O resultado deve transmitir solidariedade, tecnologia, logística, sustentabilidade e impacto social. Criar uma identidade visual limpa, moderna e adequada para um projeto acadêmico de tecnologia e inteligência artificial. O nome "MESAFARTAI" deve estar presente de forma legível no logotipo.
+
+O arquivo de logo e os diagramas do projeto ficam na pasta `assets/`.
+
+## 10. Evoluções possíveis (fora do escopo implementado)
+
+- Portal autenticado para ONGs solicitarem alimentos e acompanharem solicitações;
+- Persistência gerenciada para implantação em nuvem;
+- Rotinas de auditoria, retenção e exclusão de dados pessoais;
+- Integração com transportadoras ou gestão de retirada/entrega;
+- Ampliação e atualização contínua do conjunto de frases de treinamento com dados reais anonimizados e consentidos.
+
+Esses itens são possibilidades de evolução e não devem ser apresentados como recursos já entregues.
