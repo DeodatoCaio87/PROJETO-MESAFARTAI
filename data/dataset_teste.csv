@@ -1,0 +1,13 @@
+frase,intencao
+"Oi, gostaria de doar 12 kg de arroz",cadastrar_doacao
+"Tenho alimentos para oferecer à ONG",cadastrar_doacao
+"Quero registrar uma doação de frutas",cadastrar_doacao
+"Como acompanho minha doação?",consultar_status
+"Qual é a situação do protocolo MF-20261117-0001?",consultar_status
+"A ONG já recebeu os alimentos?",consultar_status
+"Sim, aceito essa ONG",aceitar_opcao
+"Pode confirmar a primeira opção",aceitar_opcao
+"Não quero essa opção, mostre outra",recusar_opcao
+"Essa ONG fica muito longe",recusar_opcao
+"Qual é a capital da França?",fora_de_escopo
+"Me ensina a fazer bolo",fora_de_escopo
