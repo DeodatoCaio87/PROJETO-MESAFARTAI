@@ -1,42 +1,26 @@
-# PROJETO-MESAFARTAI
+# Código-fonte do MESAFARTAI
 
-# ODS 2 – Fome Zero e Agricultura Sustentável
+Esta pasta contém os módulos Python da aplicação.
 
-## 📌 Sobre o projeto
+| Arquivo | Responsabilidade |
+|---|---|
+| `app.py` | Interface Streamlit, navegação pública e área administrativa. |
+| `auth.py` | Verificação de credenciais administrativas e limitação de tentativas. |
+| `chatbot.py` | Máquina de estados da conversa, registro e consulta de doações. |
+| `database.py` | Persistência SQLite, cadastro de ONGs, doações, itens e matches. |
+| `entities.py` | Extração de alimentos, quantidades, unidades, datas e dados informados pelo usuário. |
+| `geocoding.py` | Consulta de CEP/endereço e conversão em coordenadas geográficas. |
+| `matchmaking.py` | Filtro de compatibilidade e ordenação de ONGs por distância. |
+| `nlu.py` | Classificação de intenções com TF-IDF e Regressão Logística. |
 
-Este projeto tem como objetivo contribuir com a ODS 2 da ONU, que busca acabar com a fome, garantir a segurança alimentar e promover uma agricultura sustentável.
+## Execução
 
-## 🎯 Objetivo
+Execute os comandos a partir da raiz do repositório, com o ambiente virtual ativado:
 
-Desenvolver uma solução utilizando tecnologia para auxiliar no combate à fome e na melhoria do acesso e da distribuição de alimentos.
+```powershell
+streamlit run src/app.py
+```
 
-## 🌱 ODS relacionada
+A instalação, configuração dos segredos, estrutura do banco e orientações de privacidade estão documentadas no [README principal](../README.md) e em [docs/operacao_privacidade.md](../docs/operacao_privacidade.md).
 
-**ODS 2 – Fome Zero e Agricultura Sustentável**
-
-A ODS 2 busca:
-
-- Acabar com a fome;
-- Garantir segurança alimentar e nutricional;
-- Promover uma alimentação adequada;
-- Incentivar uma agricultura sustentável;
-- Melhorar a produção e distribuição de alimentos.
-
-## 💡 Solução proposta
-
-O projeto utiliza tecnologia para identificar problemas e auxiliar na tomada de decisões relacionadas à alimentação e à distribuição de recursos.
-
-## 👥 Equipe
-
-- Caio Veloso Lima Deodato
-- André Sousa Lima
-- Lucas Aparecido Rolim Costa
-  
-## 📊 Resultados esperados
-
-Espera-se que a solução contribua para a redução de problemas relacionados à insegurança alimentar, além de demonstrar como a tecnologia pode ser utilizada para apoiar os objetivos de desenvolvimento sustentável.
-
-## 📚 Referências
-
-- Organização das Nações Unidas (ONU)
-- Objetivos de Desenvolvimento Sustentável – ODS 2
+**Importante:** não execute nem versione um arquivo `.streamlit/secrets.toml` com credenciais reais em repositório público. O banco `data/mesafartai.db` é local e não deve conter dados pessoais em commits.
